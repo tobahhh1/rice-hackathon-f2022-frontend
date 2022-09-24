@@ -1,16 +1,12 @@
-import logo from './logo.svg';
-import './App.css';
-import React, {useState} from 'react';
-import { Box } from '@chakra-ui/react';
-import {
-  FormControl,
-  FormLabel,
-  FormErrorMessage,
-  FormHelperText,
-} from '@chakra-ui/react';
-import { Wrap, WrapItem } from '@chakra-ui/react';
-
-
+import React, { useState } from "react";
+// import { Box } from "@chakra-ui/react";
+// import {
+//   FormControl,
+//   FormLabel,
+//   FormErrorMessage,
+//   FormHelperText,
+// } from "@chakra-ui/react";
+// import { Wrap, WrapItem } from "@chakra-ui/react";
 
 function FormPage(props) {
   const[destinations,setDestinations] = useState([]);
@@ -38,8 +34,6 @@ function FormPage(props) {
       e.preventDefault();
     }
     
-    
-
 
 
   }
@@ -89,4 +83,4 @@ function FormPage(props) {
   );
 }
 
-export default Formpage;
+export default FormPage;
