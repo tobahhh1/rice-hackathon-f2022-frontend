@@ -26,6 +26,8 @@ function FormPage(props) {
 
   }
 
+  
+
   const handleNext = (e) => {
     if ( number < maxDestinations){
       setDestinations(destinations.add(e.target.value));
@@ -51,11 +53,29 @@ function FormPage(props) {
 
 
 
+
+
+
+
   return (
     <div className="App">
-    <Form onSubmit = {handleSubmit}>
+    <form onSubmit = {handleSubmit}>
       {
-        destinations.map((destination) => 
+        destinations.map((destination) => (
+
+            <Box>
+            <label>
+            
+            <input type = "text" onChange= {handleNext} value = {destination}/>
+            </label>
+          </Box>
+
+          
+          
+
+
+
+        )
 
 
       )}
@@ -63,14 +83,8 @@ function FormPage(props) {
       
 
 
-        <Box>
-          <label>
-          
-          <input type = "text" onChange= {handleNext} value = {destination}/>
-          </label>
-        </Box>
-    </Form>
-      { % if }
+       
+    </form>
     </div>
   );
 }
