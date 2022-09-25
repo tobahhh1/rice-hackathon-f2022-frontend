@@ -1,5 +1,5 @@
 import React, { useState } from "react";
- import { Box } from "@chakra-ui/react";
+import { Box } from "@material-ui/core"
 
 import { useRef } from "react";
 import Chip  from "@material-ui/core/Chip";
@@ -24,15 +24,12 @@ function FormPage(props) {
     const newform = new FormData ();
     newform.add('Destinations', destinations);
     e.preventDefault();
+    
 
 
   }
 
-  const handleChange = (e) => {
 
-
-
-  }
 
   const setDestination = (e) => {
     const list = destinations.copy();
@@ -59,10 +56,6 @@ function FormPage(props) {
 
   }
 
-  const inputForm = (e) => {
-
-
-  }
 
   const chipRenderer = ({ chip, className, handleClick, handleDelete }, key) => (
     <Chip
@@ -90,13 +83,6 @@ function FormPage(props) {
   }
   
   )
-
-
-
-
-
-
-
 
 
     return (
