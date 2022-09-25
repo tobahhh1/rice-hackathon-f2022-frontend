@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { Box, Button, TextField, ListItem } from "@mui/material";
 import Autocomplete from "@mui/material/Autocomplete";
+import { useNavigate } from "react-router-dom";
 
 import Chip from "@material-ui/core/Chip";
 
@@ -10,8 +11,10 @@ function FormPage() {
   const [residenceAutocomplete, setResidenceAutocomplete] = useState([]);
   const [destination, setDestination] = useState("");
   const [destinationAutocomplete, setDestinationAutocomplete] = useState([]);
+  const [loading, setLoading] = useState(false);
 
   const maxDestinations = 5;
+  const navigate = useNavigate();
 
   useEffect(() => {
     const fetchData = async () => {
@@ -47,10 +50,28 @@ function FormPage() {
     fetchData();
   }, [destination]);
 
-  const handleSubmit = (e) => {
-    const newform = new FormData();
-    newform.add("Destinations", destinations);
+  const handleSubmit = async (e) => {
     e.preventDefault();
+    setLoading(true);
+    const result = await fetch(`${process.env.REACT_APP_API_URL}/form`, {
+      method: "post",
+      headers: {
+        Accept: "application/json",
+        "Content-Type": "application/json",
+      },
+
+      //make sure to serialize your JSON body
+      body: JSON.stringify({
+        residence,
+        destinations,
+      }),
+    });
+    if (result.status === 200) {
+      navigate("/");
+    } else {
+      alert("Error submitting form!");
+      setLoading(false);
+    }
   };
 
   const handleChangeDestination = (e) => {
@@ -92,6 +113,15 @@ function FormPage() {
 
   return (
     <div className="App">
+      <Box margin="10px 10px" textAlign="left">
+        <Button
+          onClick={() => {
+            navigate("/");
+          }}
+        >
+          Back
+        </Button>
+      </Box>
       <div style={{ width: "80%", margin: "auto", textAlign: "center" }}>
         <h2>Participate</h2>
         <h4>
@@ -104,6 +134,11 @@ function FormPage() {
         <Box width={"50%"} margin={"10px auto"}>
           <Autocomplete
             options={residenceAutocomplete}
+            onChange={(e, value) => {
+              if (value) {
+                setResidence(value);
+              }
+            }}
             renderInput={(params) => (
               <TextField
                 {...params}
@@ -154,7 +189,9 @@ function FormPage() {
             onClick={handleSubmit}
             variant="contained"
             color="primary"
-            disabled={destinations.length === 0 || residence === null}
+            disabled={
+              destinations.length === 0 || residence === null || loading
+            }
           >
             Submit
           </Button>
